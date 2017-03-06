@@ -2,7 +2,7 @@
   "name": "TODO",
   "description": "A starter project for AngularJS",
   "version": "1.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://github.com/bk201-/TODO-AngularJS",
   "license": "MIT",
   "private": true,
   "dependencies": {
