@@ -1,0 +1,34 @@
+<div class="todo-header">
+  <div class="inline-block">
+    <div class="todo-title">Task And Reminder</div>
+    <div class="todo-desc">Create New Task And Set Reminder</div>
+  </div>
+  <div class="inline-block todo-add hvr-pulse" ng-click="addTodo($event)">
+    <img src="TODO/add.png">
+  </div>
+</div>
+<div class="todo-list" ng-switch on="state">
+  <div class="animate-switch" ng-switch-when="list">
+    <input type="text" ng-model="search" class="search-query" placeholder="Search">
+    <p class="list-title">Reminders</p>
+    <table>
+      <tr ng-repeat="todo in todos | filter:search | orderBy:'name' | limitTo:limit">
+        <td class="check"><input type="checkbox" ng-model="todo.done"></td>
+        <td class="text"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
+      </tr>
+    </table>
+    <input type="button" ng-click="showAll($event)" ng-show="needShowAll((todos | filter:search).length)" value="Show All">
+    <input type="button" ng-click="done($event)" ng-show="remaining() != 0" value="Done ({{remaining()}})">
+  </div>
+  <div class="animate-switch" ng-switch-when="add">
+    <form name="todoForm">
+      <div class="control-group" ng-class="{error: todoForm.task.$invalid}">
+        <label>Task</label>
+        <input type="text" name="task" ng-model="todo.text" required>
+      </div>
+      <br>
+      <input type="button" ng-click="cancel($event)" value="Cancel">
+      <input type="button" ng-click="save($event)" ng-disabled="todoForm.$invalid" value="Save">
+    </form>
+  </div>
+</div>

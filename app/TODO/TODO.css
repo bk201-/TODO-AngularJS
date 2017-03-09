@@ -1,0 +1,65 @@
+.todo-header {
+    border: 0 solid #999999;
+    border-bottom-width: 1px;
+}
+
+.todo-header .inline-block{
+    display: inline-block;
+}
+
+.todo-header .todo-title {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.todo-header .todo-desc {
+    font-size: 14px;
+    line-height: 14px;
+    margin: 10px 0;
+}
+
+.todo-add img {
+    width: 44px;
+    height: 44px;
+    vertical-align: baseline;
+    cursor: pointer;
+}
+
+@keyframes hvr-pulse {
+    25% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    75% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+}
+.hvr-pulse {
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+}
+
+.hvr-pulse:hover, .hvr-pulse:focus, .hvr-pulse:active {
+    animation-name: hvr-pulse;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.todo-list {
+    margin-top: 20px;
+}
+
+.todo-list input[type="button"] {
+    margin-top: 20px;
+}
+
+.control-group.error>label, .control-group.error .help-block, .control-group.error .help-inline {
+    color: #b94a48;
+}
+
+.control-group.error input, .control-group.error select, .control-group.error textarea {
+    color: #b94a48;
+    border-color: #b94a48;
+}
