@@ -1,8 +1,9 @@
 'use strict';
 
 var LIMIT = 5;
+var HOUR = 60*60*1000;
 
-angular.module('myApp.TODO', ['ngRoute'])
+angular.module('myApp.TODO', ['ngRoute', 'ngStorage'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/TODO', {
@@ -11,27 +12,16 @@ angular.module('myApp.TODO', ['ngRoute'])
   });
 }])
 
-.controller('TODOCtrl', ['$scope', function($scope) {
-  $scope.todos = [
-    {
-      id: 1,
-      done: false,
-      text: 'TODO 1'
-    }, {
-      id: 2,
-      done: false,
-      text: 'TODO 2'
-    }, {
-      id: 3,
-      done: false,
-      text: 'TODO 3'
-    }
-  ];
+.controller('TODOCtrl', ['$scope', '$localStorage', function($scope, $localStorage) {
+  $scope.$storage = $localStorage;
+  if (!$scope.$storage.todos) {
+    $scope.$storage.todos = [];
+  }
   $scope.limit = LIMIT;
   $scope.state = 'list';
   $scope.showAll = function($event) {
-    if ($scope.todos.length > $scope.limit) {
-      $scope.limit = $scope.todos.length;
+    if ($scope.$storage.todos.length > $scope.limit) {
+      $scope.limit = $scope.$storage.todos.length;
       $event.target.value = 'Collapse';
     } else {
       $scope.limit = LIMIT;
@@ -39,12 +29,18 @@ angular.module('myApp.TODO', ['ngRoute'])
     }
   };
   $scope.needShowAll = function(filterLength) {
-    var todosLength = $scope.todos.length;
+    var todosLength = $scope.$storage.todos.length;
     return filterLength > $scope.limit || (filterLength == todosLength && todosLength > LIMIT)
   };
   $scope.addTodo = function() {
-    $scope.state = 'add';
-    $scope.todo = {};
+    if ($scope.state != 'add') {
+      $scope.state = 'add';
+      $scope.todo = {
+        done: false,
+        text: '',
+        reminderTime: new Date(new Date().setSeconds(0, 0) + HOUR)
+      };
+    }
   };
   $scope.cancel = function() {
     $scope.state = 'list';
@@ -52,19 +48,29 @@ angular.module('myApp.TODO', ['ngRoute'])
   };
   $scope.save = function() {
     $scope.state = 'list';
-    $scope.todos.push({id: $scope.todos.length + 1, text: $scope.todo.text, done: false});
+    $scope.$storage.todos.push({
+      text: $scope.todo.text,
+      reminderTime: $scope.todo.reminderTime.toISOString(),
+      done: false
+    });
     $scope.todo = undefined;
   };
   $scope.done = function() {
-    $scope.todos = $scope.todos.filter(function(todo) {
+    $scope.$storage.todos = $scope.$storage.todos.filter(function(todo) {
       return !todo.done;
     });
   };
   $scope.remaining = function() {
     var count = 0;
-    $scope.todos.forEach(function(todo) {
+    $scope.$storage.todos.forEach(function(todo) {
       count += todo.done ? 1 : 0;
     });
     return count;
+  };
+}])
+
+.filter('currentdatetime',['$filter',  function($filter) {
+  return function() {
+    return $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm');
   };
 }]);
