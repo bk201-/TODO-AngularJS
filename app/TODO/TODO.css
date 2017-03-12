@@ -1,6 +1,5 @@
-.todo-header {
-    border: 0 solid #999999;
-    border-bottom-width: 1px;
+.todo-container {
+    min-width: 300px;
 }
 
 .todo-header .inline-block{
@@ -18,16 +17,13 @@
     margin: 10px 0;
 }
 
-.todo-add img {
-    width: 44px;
-    height: 44px;
-    vertical-align: baseline;
+.todo-header .todo-add {
+    font-size: 44px;
     cursor: pointer;
 }
 
-.todo-add.disabled img {
-    cursor: inherit;
-    filter: grayscale(1);
+.todo-header .todo-add.text-success {
+    color: #449d44;
 }
 
 @keyframes hvr-pulse {
@@ -38,41 +34,18 @@
         transform: scale(0.9);
     }
 }
-.hvr-pulse:not(.disabled) {
+.hvr-pulse:not(.text-muted) {
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px transparent;
 }
 
-.hvr-pulse:not(.disabled):hover, .hvr-pulse:not(.disabled):focus, .hvr-pulse:not(.disabled):active {
+.hvr-pulse:not(.text-muted):hover, .hvr-pulse:not(.text-muted):focus, .hvr-pulse:not(.text-muted):active {
     animation-name: hvr-pulse;
     animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
 
-.todo-list {
-    margin-top: 20px;
-}
-
-.todo-list input[type="button"] {
-    margin-top: 20px;
-}
-
-.control-group {
-    margin-bottom: 9px;
-}
-
-.control-group>label {
+datetimepicker {
     display: block;
-    margin-bottom: 5px;
-    color: #333333;
-}
-
-.control-group.error>label, .control-group.error .help-block, .control-group.error .help-inline {
-    color: #b94a48;
-}
-
-.control-group.error input, .control-group.error select, .control-group.error textarea {
-    color: #b94a48;
-    border-color: #b94a48;
 }

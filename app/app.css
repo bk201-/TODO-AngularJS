@@ -1,1 +1,4 @@
 /* app css stylesheet */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}

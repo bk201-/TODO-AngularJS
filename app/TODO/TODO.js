@@ -3,7 +3,7 @@
 var LIMIT = 5;
 var HOUR = 60*60*1000;
 
-angular.module('myApp.TODO', ['ngRoute', 'ngStorage'])
+angular.module('myApp.TODO', ['ngRoute', 'ngStorage', 'ui.bootstrap.datetimepicker'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/TODO', {
@@ -59,13 +59,6 @@ angular.module('myApp.TODO', ['ngRoute', 'ngStorage'])
     $scope.$storage.todos = $scope.$storage.todos.filter(function(todo) {
       return !todo.done;
     });
-  };
-  $scope.remaining = function() {
-    var count = 0;
-    $scope.$storage.todos.forEach(function(todo) {
-      count += todo.done ? 1 : 0;
-    });
-    return count;
   };
 }])
 
