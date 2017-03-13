@@ -5,7 +5,7 @@
 describe('my app', function () {
     it('should automatically redirect to /TODO when location hash/fragment is empty', function () {
         browser.get('index.html');
-        expect(browser.getLocationAbsUrl()).toMatch("/TODO");
+        expect(browser.getCurrentUrl()).toMatch("/TODO");
     });
 
     describe('TODO', function () {
@@ -14,7 +14,7 @@ describe('my app', function () {
         });
 
         it('should render TODO when user navigates to /TODO', function () {
-            expect(element.all(by.css('[ng-view] .todo-title')).getText()).toMatch(/Task And Reminder/);
+            expect(element.all(by.css('[ng-view] .todo-title')).getText()).toMatch(/Tasks And Reminder/);
         });
     });
 });
