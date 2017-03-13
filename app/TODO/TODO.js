@@ -63,6 +63,32 @@ angular.module('myApp.TODO', ['ngRoute', 'ngStorage', 'ui.bootstrap.datetimepick
             };
         }
     ])
+    .directive('ngValidateAfter', [function() {
+        var validate_class = "nq-validate";
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function(scope, element, attrs, ctrl) {
+                ctrl.validate = false;
+
+                element.bind('focus', function(evt) {
+                    if(ctrl.validate && ctrl.$invalid) // if we focus and the field was invalid, keep the validation
+                    {
+                        element.addClass(validate_class);
+                        scope.$apply(function() {ctrl.validate = true;});
+                    }
+                    else
+                    {
+                        element.removeClass(validate_class);
+                        scope.$apply(function() {ctrl.validate = false;});
+                    }
+                }).bind('blur', function(evt) {
+                    element.addClass(validate_class);
+                    scope.$apply(function() {ctrl.validate = true;});
+                });
+            }
+        }
+    }])
     .filter('currentdatetime', [
         '$filter', function ($filter) {
             return function () {

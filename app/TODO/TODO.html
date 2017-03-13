@@ -34,10 +34,10 @@
         </div>
         <div ng-switch-when="add">
             <form name="todoForm">
-                <div class="form-group" ng-class="{'has-error': todoForm.task.$invalid}">
+                <div class="form-group" ng-class="{'has-error': (todoForm.task.$invalid && todoForm.task.validate)}">
                     <label class="control-label" for="task">Task text</label>
-                    <input id="task" type="text" name="task" class="form-control" ng-model="todo.text" required
-                           autofocus>
+                    <input id="task" type="text" name="task" class="form-control" ng-model="todo.text" ng-validate-after
+                           required autofocus>
                     <span class="help-block" ng-show="todoForm.task.$error.required">Required!</span>
                 </div>
                 <div class="form-group" ng-class="{'has-error': todoForm.reminderTime.$invalid}">
