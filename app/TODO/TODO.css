@@ -2,7 +2,7 @@
     min-width: 300px;
 }
 
-.todo-header .inline-block{
+.todo-header .inline-block {
     display: inline-block;
 }
 
@@ -26,6 +26,10 @@
     color: #449d44;
 }
 
+.todo-header .todo-add.text-muted {
+    cursor: inherit;
+}
+
 @keyframes hvr-pulse {
     25% {
         transform: scale(1.1);
@@ -34,6 +38,7 @@
         transform: scale(0.9);
     }
 }
+
 .hvr-pulse:not(.text-muted) {
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px transparent;

@@ -1,47 +1,60 @@
 <div class="todo-container panel panel-info">
-  <div class="todo-header panel-heading">
-    <div class="inline-block">
-      <div class="todo-title">Tasks And Reminder</div>
-      <div class="todo-desc">Create New Task And Set Reminders</div>
-    </div>
-    <span class="todo-add glyphicon glyphicon-plus-sign hvr-pulse" aria-hidden="true" ng-class="state == 'add' ? 'text-muted' : 'text-success'" ng-click="addTodo($event)"></span>
-  </div>
-  <div class="todo-list panel-body" ng-switch on="state">
-    <div ng-switch-when="list">
-      <div class="form-group">
-        <input type="search" ng-model="search" class="search-query form-control" placeholder="Search">
-      </div>
-      <h4 class="list-title">Tasks</h4>
-      <table class="table table-striped">
-        <colgroup>
-          <col span="1" style="width: 40px;">
-        </colgroup>
-        <tr ng-repeat="todo in $storage.todos | filter:search | orderBy:'reminderTime' | limitTo:limit" ng-class="{success:todo.done}">
-          <td class="check"><input type="checkbox" ng-model="todo.done"></td>
-          <td class="text"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
-        </tr>
-      </table>
-      <input type="button" class="btn btn-info btn-lg" ng-click="showAll($event)" ng-show="needShowAll(($storage.todos | filter:search).length)" value="Show All">
-      <input type="button" class="btn btn-success btn-lg" ng-click="done($event)" ng-show="($storage.todos | filter:search | filter:{done:true}).length != 0" value="Done ({{($storage.todos | filter:search | filter:{done:true}).length}})">
-    </div>
-    <div ng-switch-when="add">
-      <form name="todoForm">
-        <div class="form-group" ng-class="{'has-error': todoForm.task.$invalid}">
-          <label class="control-label" for="task">Task text</label>
-          <input id="task" type="text" name="task" class="form-control" ng-model="todo.text" required autofocus>
-          <span class="help-block" ng-show="todoForm.task.$error.required">Required!</span>
+    <div class="todo-header panel-heading">
+        <div class="inline-block">
+            <div class="todo-title">Tasks And Reminder</div>
+            <div class="todo-desc">Create New Task And Set Reminders</div>
         </div>
-        <div class="form-group" ng-class="{'has-error': todoForm.reminderTime.$invalid}">
-          <label class="control-label" for="reminderTime">Reminder time</label>
-          <input id="reminderTime" type="datetime-local" name="reminderTime" class="form-control hidden" ng-model="todo.reminderTime" min="{{'' | currentdatetime}}" placeholder="yyyy-MM-ddTHH:mm" required>
-          <datetimepicker ng-model="todo.reminderTime" show-meridian="false" show-spinners="false" date-format="yyyy-MM-dd"></datetimepicker>
-          <span class="help-block" ng-show="todoForm.reminderTime.$error.required">Required!</span>
-          <span class="help-block" ng-show="todoForm.reminderTime.$error.datetimelocal">Not a valid date!</span>
-          <span class="help-block" ng-show="todoForm.reminderTime.$error.min">Date must be greater than current!</span>
-        </div>
-        <input type="button" class="btn btn-primary" ng-click="cancel($event)" value="Cancel">
-        <input type="button" class="btn btn-success" ng-click="save($event)" ng-disabled="todoForm.$invalid" value="Save">
-      </form>
+        <span class="todo-add glyphicon glyphicon-plus-sign hvr-pulse" aria-hidden="true"
+              ng-class="state == 'add' ? 'text-muted' : 'text-success'" ng-click="addTodo($event)"></span>
     </div>
-  </div>
+    <div class="todo-list panel-body" ng-switch on="state">
+        <div ng-switch-when="list">
+            <div class="form-group">
+                <input type="search" ng-model="search" class="search-query form-control" placeholder="Search">
+            </div>
+            <h4 class="list-title">Tasks</h4>
+            <table class="table table-striped">
+                <colgroup>
+                    <col span="1" style="width: 40px;">
+                </colgroup>
+                <tr ng-repeat="todo in $storage.todos | filter:search | orderBy:'reminderTime' | limitTo:limit"
+                    ng-class="{success:todo.done}">
+                    <td class="check"><input type="checkbox" ng-model="todo.done"></td>
+                    <td class="text"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
+                </tr>
+            </table>
+            <button type="button" class="btn btn-info btn-lg" ng-click="showAll($event)"
+                    ng-show="needShowAll(($storage.todos | filter:search).length)">
+                Show All <span class="badge">{{($storage.todos | filter:search).length}}</span>
+            </button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="done($event)"
+                    ng-show="($storage.todos | filter:search | filter:{done:true}).length != 0">
+                Done <span class="badge">{{($storage.todos | filter:search | filter:{done:true}).length}}</span>
+            </button>
+        </div>
+        <div ng-switch-when="add">
+            <form name="todoForm">
+                <div class="form-group" ng-class="{'has-error': todoForm.task.$invalid}">
+                    <label class="control-label" for="task">Task text</label>
+                    <input id="task" type="text" name="task" class="form-control" ng-model="todo.text" required
+                           autofocus>
+                    <span class="help-block" ng-show="todoForm.task.$error.required">Required!</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': todoForm.reminderTime.$invalid}">
+                    <label class="control-label" for="reminderTime">Reminder time</label>
+                    <input id="reminderTime" type="datetime-local" name="reminderTime" class="form-control hidden"
+                           ng-model="todo.reminderTime" min="{{'' | currentdatetime}}" placeholder="yyyy-MM-ddTHH:mm"
+                           required>
+                    <datetimepicker ng-model="todo.reminderTime" show-meridian="false" show-spinners="false"
+                                    date-format="yyyy-MM-dd"></datetimepicker>
+                    <span class="help-block" ng-show="todoForm.reminderTime.$error.required">Required!</span>
+                    <span class="help-block" ng-show="todoForm.reminderTime.$error.datetimelocal">Not a valid date!</span>
+                    <span class="help-block" ng-show="todoForm.reminderTime.$error.min">Date must be greater than current!</span>
+                </div>
+                <input type="button" class="btn btn-primary" ng-click="cancel($event)" value="Cancel">
+                <input type="button" class="btn btn-success" ng-click="save($event)" ng-disabled="todoForm.$invalid"
+                       value="Save">
+            </form>
+        </div>
+    </div>
 </div>
