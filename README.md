@@ -1,6 +1,7 @@
 # `TODO-AngularJS` — My test AngularJS apps
 
 [![Build Status](https://travis-ci.org/bk201-/TODO-AngularJS.svg?branch=master)](https://travis-ci.org/bk201-/TODO-AngularJS)
+[![devDependencies Status](https://david-dm.org/bk201-/TODO-AngularJS/dev-status.svg)](https://david-dm.org/bk201-/TODO-AngularJS?type=dev)
 
 ## Getting Started
 
