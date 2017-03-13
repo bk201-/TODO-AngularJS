@@ -1,5 +1,7 @@
 # `TODO-AngularJS` — My test AngularJS apps
 
+[![Build Status](https://travis-ci.org/bk201-/TODO-AngularJS.svg?branch=master)](https://travis-ci.org/bk201-/TODO-AngularJS)
+
 ## Getting Started
 
 To get you started you can simply clone the `TODO-AngularJS` repository and install the dependencies:
